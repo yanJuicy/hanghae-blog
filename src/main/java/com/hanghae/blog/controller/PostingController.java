@@ -1,7 +1,6 @@
 package com.hanghae.blog.controller;
 
 import com.hanghae.blog.dto.PostingDto;
-import com.hanghae.blog.entity.Posting;
 import com.hanghae.blog.service.PostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,7 @@ public class PostingController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public PostingDto.Response createPosting(@RequestBody final PostingDto.Request request) {
-        Posting savedPosting = postingService.create(request);
-        return new PostingDto.Response(savedPosting);
+        return postingService.create(request);
     }
 
     @ResponseStatus(HttpStatus.OK)

@@ -17,10 +17,10 @@ public class PostingService {
     private final PostingRepository postingRepository;
 
     @Transactional
-    public Posting create(PostingDto.Request requestDto) {
+    public PostingDto.Response create(PostingDto.Request requestDto) {
         Posting posting = requestDto.toEntity();
         Posting savedPosting = postingRepository.save(posting);
-        return savedPosting;
+        return new PostingDto.Response(savedPosting);
     }
 
     public List<PostingDto.Response> findAll() {
