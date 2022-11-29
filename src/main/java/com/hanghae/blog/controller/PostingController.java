@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/postings")
 @RestController
@@ -21,6 +23,11 @@ public class PostingController {
         return new PostingDto.Response(savedPosting);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping
+    public List<PostingDto.Response> findAllPostings() {
+        return postingService.findAll();
+    }
 
 
 }
