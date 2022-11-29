@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/postings")
@@ -37,6 +39,16 @@ public class PostingController {
     @PutMapping("/{id}")
     public PostingDto.Response updatePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
         return postingService.update(id, request);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public Map<String, Boolean> deletePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
+        postingService.deleteOne(id, request);
+        Map<String, Boolean> result = new HashMap<>();
+        result.put("success", true);
+
+        return result;
     }
 
 

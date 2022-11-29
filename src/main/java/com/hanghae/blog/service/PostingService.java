@@ -56,4 +56,16 @@ public class PostingService {
         return !a.equals(b);
     }
 
+    @Transactional
+    public void deleteOne(Long id, PostingDto.Request requestDto) {
+        Posting foundPosting = postingRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMessage()));
+
+        if (isNotEqualPassword(foundPosting.getPassword(), requestDto.getPassword())) {
+            throw new IllegalArgumentException(ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG.getMessage());
+        }
+
+        postingRepository.deleteById(id);
+    }
+
 }
