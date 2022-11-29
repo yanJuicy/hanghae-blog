@@ -27,5 +27,11 @@ public class PostingController {
         return postingService.findAll();
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")
+    public PostingDto.Response findPosting(@PathVariable Long id) {
+        return postingService.findOne(id);
+    }
+
 
 }

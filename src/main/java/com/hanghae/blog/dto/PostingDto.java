@@ -42,4 +42,10 @@ public class PostingDto {
             this.lastModifiedAt = posting.getLastModifiedAt();
         }
     }
+
+    @Getter
+    @RequiredArgsConstructor
+    public static class Exception {
+        private final String message;
+    }
 }
