@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 public class PostingDto {
 
+    @Getter
     @RequiredArgsConstructor
     public static class Request {
         private final String title;

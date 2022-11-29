@@ -1,5 +1,6 @@
 package com.hanghae.blog.entity;
 
+import com.hanghae.blog.dto.PostingDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -34,4 +34,11 @@ public class Posting extends Timestamped {
 
     @Column
     private String password;
+
+    public void update(PostingDto.Request requestDto) {
+        this.title = requestDto.getTitle();
+        this.writer = requestDto.getWriter();
+        this.contents = requestDto.getContents();
+        this.password = requestDto.getPassword();
+    }
 }

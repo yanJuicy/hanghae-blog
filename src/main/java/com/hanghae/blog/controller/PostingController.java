@@ -15,12 +15,6 @@ public class PostingController {
 
     private final PostingService postingService;
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public PostingDto.Response createPosting(@RequestBody final PostingDto.Request request) {
-        return postingService.create(request);
-    }
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<PostingDto.Response> findAllPostings() {
@@ -31,6 +25,18 @@ public class PostingController {
     @GetMapping("/{id}")
     public PostingDto.Response findPosting(@PathVariable Long id) {
         return postingService.findOne(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public PostingDto.Response createPosting(@RequestBody final PostingDto.Request request) {
+        return postingService.create(request);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{id}")
+    public PostingDto.Response updatePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
+        return postingService.update(id, request);
     }
 
 

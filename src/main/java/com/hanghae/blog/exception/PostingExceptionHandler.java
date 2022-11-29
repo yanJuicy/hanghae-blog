@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice(assignableTypes = PostingController.class)
 public class PostingExceptionHandler {
 
-    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler({NoSuchElementException.class, IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public PostingDto.Exception handleBadRequest(RuntimeException e) {
         return new PostingDto.Exception(e.getMessage());
