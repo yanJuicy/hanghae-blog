@@ -52,10 +52,6 @@ public class PostingService {
         return new PostingDto.Response(foundPosting);
     }
 
-    private boolean isNotEqualPassword(String a, String b) {
-        return !a.equals(b);
-    }
-
     @Transactional
     public void deleteOne(Long id, PostingDto.Request requestDto) {
         Posting foundPosting = postingRepository.findById(id)
@@ -66,6 +62,10 @@ public class PostingService {
         }
 
         postingRepository.deleteById(id);
+    }
+
+    private boolean isNotEqualPassword(String a, String b) {
+        return !a.equals(b);
     }
 
 }
