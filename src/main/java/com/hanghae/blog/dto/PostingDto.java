@@ -24,6 +24,14 @@ public class PostingDto {
                     .password(password)
                     .build();
         }
+
+        public boolean isFill() {
+            if (title == null || writer == null || contents == null || password == null) {
+                return false;
+            }
+
+            return true;
+        }
     }
 
 

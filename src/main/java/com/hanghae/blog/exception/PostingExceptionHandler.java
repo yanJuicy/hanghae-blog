@@ -2,6 +2,8 @@ package com.hanghae.blog.exception;
 
 import com.hanghae.blog.controller.PostingController;
 import com.hanghae.blog.dto.PostingDto;
+import com.hanghae.blog.exception.custom.NotEnoughArgumentException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,7 +14,7 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice(assignableTypes = PostingController.class)
 public class PostingExceptionHandler {
 
-    @ExceptionHandler({NoSuchElementException.class, IllegalArgumentException.class})
+    @ExceptionHandler({NoSuchElementException.class, IllegalArgumentException.class, NotEnoughArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public PostingDto.Exception handleBadRequest(RuntimeException e) {
         return new PostingDto.Exception(e.getMessage());

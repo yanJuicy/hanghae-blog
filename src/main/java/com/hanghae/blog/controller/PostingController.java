@@ -1,6 +1,7 @@
 package com.hanghae.blog.controller;
 
 import com.hanghae.blog.dto.PostingDto;
+import com.hanghae.blog.exception.custom.NotEnoughArgumentException;
 import com.hanghae.blog.service.PostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,12 +33,20 @@ public class PostingController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public PostingDto.Response createPosting(@RequestBody final PostingDto.Request request) {
+        if (!request.isFill()) {
+            throw new NotEnoughArgumentException();
+        }
+
         return postingService.create(request);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public PostingDto.Response updatePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
+        if (!request.isFill()) {
+            throw new NotEnoughArgumentException();
+        }
+
         return postingService.update(id, request);
     }
 
@@ -50,6 +59,5 @@ public class PostingController {
 
         return result;
     }
-
 
 }
