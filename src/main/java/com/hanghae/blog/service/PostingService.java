@@ -5,6 +5,7 @@ import com.hanghae.blog.entity.Posting;
 import com.hanghae.blog.exception.ExceptionMessage;
 import com.hanghae.blog.repository.PostingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,22 +20,23 @@ public class PostingService {
 
     public List<PostingDto.Response> findAll() {
         List<Posting> postingList = postingRepository.findAll();
-        List<PostingDto.Response> responseList =
-                postingList.stream().map(e -> new PostingDto.Response(e)).collect(Collectors.toList());
+        List<PostingDto.Response> responseList = postingList.stream()
+                .map(e -> new PostingDto.Response(HttpStatus.OK, "조회 성공", new PostingDto.Data(e)))
+                .collect(Collectors.toList());
         return responseList;
     }
 
     public PostingDto.Response findOne(Long id) {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMessage()));
-        return new PostingDto.Response(foundPosting);
+        return new PostingDto.Response(HttpStatus.OK, "조회 성공", new PostingDto.Data(foundPosting));
     }
 
     @Transactional
     public PostingDto.Response create(PostingDto.Request requestDto) {
         Posting posting = requestDto.toEntity();
         Posting savedPosting = postingRepository.save(posting);
-        return new PostingDto.Response(savedPosting);
+        return new PostingDto.Response(HttpStatus.CREATED, "포스팅 생성 성공", new PostingDto.Data(savedPosting));
     }
 
     @Transactional
@@ -47,9 +49,8 @@ public class PostingService {
         }
 
         foundPosting.update(requestDto);
-        postingRepository.save(foundPosting);
 
-        return new PostingDto.Response(foundPosting);
+        return new PostingDto.Response(HttpStatus.OK, "포스팅 생성 성공", new PostingDto.Data(foundPosting));
     }
 
     @Transactional

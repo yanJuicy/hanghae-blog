@@ -3,6 +3,7 @@ package com.hanghae.blog.dto;
 import com.hanghae.blog.entity.Posting;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -34,22 +35,30 @@ public class PostingDto {
         }
     }
 
-
     @Getter
-    public static class Response {
+    public static class Data {
         private final Long id;
         private final String title;
         private final String writer;
         private final String contents;
         private final LocalDateTime lastModifiedAt;
 
-        public Response(Posting posting) {
+        public Data(Posting posting) {
             this.id = posting.getId();
             this.title = posting.getTitle();
             this.writer = posting.getWriter();
             this.contents = posting.getWriter();
             this.lastModifiedAt = posting.getLastModifiedAt();
         }
+    }
+
+
+    @Getter
+    @RequiredArgsConstructor
+    public static class Response {
+        private final HttpStatus httpStatus;
+        private final String msg;
+        private final Data data;
     }
 
     @Getter
