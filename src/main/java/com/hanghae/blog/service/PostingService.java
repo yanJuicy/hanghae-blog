@@ -47,7 +47,6 @@ public class PostingService {
         }
 
         foundPosting.update(requestDto);
-        postingRepository.save(foundPosting);
 
         return new PostingDto.Response(foundPosting);
     }
