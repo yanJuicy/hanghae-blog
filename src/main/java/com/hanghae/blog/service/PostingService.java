@@ -28,7 +28,7 @@ public class PostingService {
 
     public PostingDto.Response findOne(Long id) {
         Posting foundPosting = postingRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMessage()));
+                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
         return new PostingDto.Response(ResponseMessage.READ_POSTING, new PostingDto.Data(foundPosting));
     }
 
@@ -42,10 +42,10 @@ public class PostingService {
     @Transactional
     public PostingDto.Response update(Long id, PostingDto.Request requestDto) {
         Posting foundPosting = postingRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMessage()));
+                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
 
         if (isNotEqualPassword(foundPosting.getPassword(), requestDto.getPassword())) {
-            throw new IllegalArgumentException(ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG.getMessage());
+            throw new IllegalArgumentException(ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG.getMsg());
         }
 
         foundPosting.update(requestDto);
@@ -56,10 +56,10 @@ public class PostingService {
     @Transactional
     public void deleteOne(Long id, PostingDto.Request requestDto) {
         Posting foundPosting = postingRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMessage()));
+                .orElseThrow(() -> new NoSuchElementException(ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
 
         if (isNotEqualPassword(foundPosting.getPassword(), requestDto.getPassword())) {
-            throw new IllegalArgumentException(ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG.getMessage());
+            throw new IllegalArgumentException(ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG.getMsg());
         }
 
         postingRepository.deleteById(id);

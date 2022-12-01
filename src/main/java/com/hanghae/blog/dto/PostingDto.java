@@ -66,9 +66,10 @@ public class PostingDto {
         }
     }
 
-    @Getter
     @RequiredArgsConstructor
+    @Getter
     public static class Exception {
+        private final int status;
         private final String message;
     }
 }
