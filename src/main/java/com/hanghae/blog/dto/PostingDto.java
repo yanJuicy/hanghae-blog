@@ -1,9 +1,9 @@
 package com.hanghae.blog.dto;
 
+import com.hanghae.blog.common.ResponseMessage;
 import com.hanghae.blog.entity.Posting;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -54,11 +54,16 @@ public class PostingDto {
 
 
     @Getter
-    @RequiredArgsConstructor
     public static class Response {
-        private final HttpStatus httpStatus;
-        private final String msg;
-        private final Data data;
+        private int status;
+        private String msg;
+        private Data data;
+
+        public Response(ResponseMessage responseMessage, Data data) {
+            this.status = responseMessage.getStatus();
+            this.msg = responseMessage.getMsg();
+            this.data = data;
+        }
     }
 
     @Getter
