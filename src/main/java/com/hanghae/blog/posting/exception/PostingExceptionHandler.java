@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 
 import static com.hanghae.blog.common.exception.ExceptionMessage.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestControllerAdvice(assignableTypes = PostingController.class)
 public class PostingExceptionHandler {
@@ -23,14 +22,8 @@ public class PostingExceptionHandler {
         } else if (e.getMessage().equals(WRONG_PASSWORD_EXCEPTION_MSG.getMsg())) {
             return new PostingDto.Exception(WRONG_PASSWORD_EXCEPTION_MSG);
         }
-        return null;
-    }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(INTERNAL_SERVER_ERROR)
-    public PostingDto.Exception handleServerError(Exception e) {
-        return new PostingDto.Exception(INTERNAL_SERVER_ERROR_MSG);
+        return new PostingDto.Exception(BAD_REQUEST_ERROR_MSG);
     }
-
 
 }

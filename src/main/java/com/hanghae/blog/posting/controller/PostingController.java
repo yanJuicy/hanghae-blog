@@ -5,11 +5,13 @@ import com.hanghae.blog.common.exception.custom.NotEnoughArgumentException;
 import com.hanghae.blog.posting.service.PostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RequestMapping("/postings")
@@ -18,19 +20,16 @@ public class PostingController {
 
     private final PostingService postingService;
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<PostingDto.Response> findAllPostings() {
         return postingService.findAll();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public PostingDto.Response findPosting(@PathVariable Long id) {
         return postingService.findOne(id);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public PostingDto.Response createPosting(@RequestBody final PostingDto.Request request) {
         if (!request.isFill()) {
@@ -40,7 +39,6 @@ public class PostingController {
         return postingService.create(request);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public PostingDto.Response updatePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
         if (!request.isFill()) {
@@ -50,14 +48,16 @@ public class PostingController {
         return postingService.update(id, request);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deletePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
+    public ResponseEntity<Map<String, Boolean>> deletePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
         postingService.deleteOne(id, request);
         Map<String, Boolean> result = new HashMap<>();
         result.put("success", true);
 
-        return result;
+        ResponseEntity<Map<String, Boolean>> response =
+                ResponseEntity.of(Optional.of(result));
+
+        return response;
     }
 
 }
