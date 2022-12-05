@@ -1,7 +1,7 @@
 package com.hanghae.blog.member.controller;
 
-import com.hanghae.blog.member.dto.CreateMemberRequestDto;
-import com.hanghae.blog.member.dto.CreateMemberResponseDto;
+import com.hanghae.blog.member.dto.JoinMemberRequestDto;
+import com.hanghae.blog.member.dto.JoinMemberResponseDto;
 import com.hanghae.blog.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@PostMapping("/join")
-	public CreateMemberResponseDto joinMember(@RequestBody CreateMemberRequestDto requestDto) {
+	public JoinMemberResponseDto joinMember(@RequestBody JoinMemberRequestDto requestDto) {
 		return memberService.createMember(requestDto);
 	}
 

@@ -1,7 +1,7 @@
 package com.hanghae.blog.member.service;
 
-import com.hanghae.blog.member.dto.CreateMemberRequestDto;
-import com.hanghae.blog.member.dto.CreateMemberResponseDto;
+import com.hanghae.blog.member.dto.JoinMemberRequestDto;
+import com.hanghae.blog.member.dto.JoinMemberResponseDto;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public CreateMemberResponseDto createMember(CreateMemberRequestDto request) {
+    public JoinMemberResponseDto createMember(JoinMemberRequestDto request) {
         String username = request.getUsername();
 
         Optional<Member> dbUser = memberRepository.findByUsername(username);
@@ -30,7 +30,7 @@ public class MemberService {
 
         memberRepository.save(new Member(request));
 
-        return new CreateMemberResponseDto(CREATE_MEMBER);
+        return new JoinMemberResponseDto(CREATE_MEMBER);
     }
 
 }

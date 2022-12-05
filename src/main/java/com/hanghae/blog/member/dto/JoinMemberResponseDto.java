@@ -5,9 +5,9 @@ import com.hanghae.blog.common.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-public class CreateMemberResponseDto extends ResponseDto {
+public class JoinMemberResponseDto extends ResponseDto {
 
-    public CreateMemberResponseDto(ResponseMessage responseMessage) {
+    public JoinMemberResponseDto(ResponseMessage responseMessage) {
         super(responseMessage);
     }
 }

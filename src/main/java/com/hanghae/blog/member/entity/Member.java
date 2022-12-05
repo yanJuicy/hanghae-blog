@@ -2,7 +2,7 @@ package com.hanghae.blog.member.entity;
 
 import javax.persistence.*;
 
-import com.hanghae.blog.member.dto.CreateMemberRequestDto;
+import com.hanghae.blog.member.dto.JoinMemberRequestDto;
 import lombok.Getter;
 
 @Getter
@@ -21,7 +21,7 @@ public class Member {
 
 	protected Member() {}
 
-	public Member(CreateMemberRequestDto request) {
+	public Member(JoinMemberRequestDto request) {
 		this.username = request.getUsername();
 		this.password = request.getPassword();
 	}
