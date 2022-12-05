@@ -1,7 +1,7 @@
-package com.hanghae.blog.dto;
+package com.hanghae.blog.posting.dto;
 
 import com.hanghae.blog.common.ResponseMessage;
-import com.hanghae.blog.entity.Posting;
+import com.hanghae.blog.posting.entity.Posting;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

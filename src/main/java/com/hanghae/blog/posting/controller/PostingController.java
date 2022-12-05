@@ -1,8 +1,8 @@
-package com.hanghae.blog.controller;
+package com.hanghae.blog.posting.controller;
 
-import com.hanghae.blog.dto.PostingDto;
-import com.hanghae.blog.exception.custom.NotEnoughArgumentException;
-import com.hanghae.blog.service.PostingService;
+import com.hanghae.blog.posting.dto.PostingDto;
+import com.hanghae.blog.posting.exception.custom.NotEnoughArgumentException;
+import com.hanghae.blog.posting.service.PostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
-package com.hanghae.blog.entity;
+package com.hanghae.blog.posting.entity;
 
-import com.hanghae.blog.dto.PostingDto;
+import com.hanghae.blog.posting.dto.PostingDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

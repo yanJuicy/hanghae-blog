@@ -1,10 +1,11 @@
-package com.hanghae.member;
+package com.hanghae.blog.member.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.hanghae.member.entity.Member;
-import com.hanghae.member.repository.MemberRepository;
+import com.hanghae.blog.member.dto.MemberResponseDto;
+import com.hanghae.blog.member.entity.Member;
+import com.hanghae.blog.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;

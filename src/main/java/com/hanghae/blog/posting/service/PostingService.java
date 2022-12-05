@@ -1,10 +1,10 @@
-package com.hanghae.blog.service;
+package com.hanghae.blog.posting.service;
 
 import com.hanghae.blog.common.ResponseMessage;
-import com.hanghae.blog.dto.PostingDto;
-import com.hanghae.blog.entity.Posting;
-import com.hanghae.blog.exception.ExceptionMessage;
-import com.hanghae.blog.repository.PostingRepository;
+import com.hanghae.blog.posting.dto.PostingDto;
+import com.hanghae.blog.posting.entity.Posting;
+import com.hanghae.blog.posting.exception.ExceptionMessage;
+import com.hanghae.blog.posting.repository.PostingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

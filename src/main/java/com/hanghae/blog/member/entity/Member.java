@@ -1,4 +1,4 @@
-package com.hanghae.member;
+package com.hanghae.blog.member.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.hanghae.member;
+package com.hanghae.blog.member.dto;
 
-import com.hanghae.member.entity.Member;
+import com.hanghae.blog.member.entity.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
