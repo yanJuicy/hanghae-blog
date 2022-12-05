@@ -1,5 +1,6 @@
 package com.hanghae.blog.posting.dto;
 
+import com.hanghae.blog.common.exception.ExceptionMessage;
 import com.hanghae.blog.common.response.ResponseMessage;
 import com.hanghae.blog.posting.entity.Posting;
 import lombok.Getter;
@@ -66,10 +67,14 @@ public class PostingDto {
         }
     }
 
-    @RequiredArgsConstructor
     @Getter
     public static class Exception {
         private final int status;
         private final String message;
+
+        public Exception(ExceptionMessage exceptionMessage) {
+            status = exceptionMessage.getStatus();
+            message = exceptionMessage.getMsg();
+        }
     }
 }
