@@ -1,4 +1,4 @@
-package com.hanghae.blog.posting.exception.custom;
+package com.hanghae.blog.common.custom;
 
 public class NotEnoughArgumentException extends RuntimeException{
 

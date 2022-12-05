@@ -2,7 +2,7 @@ package com.hanghae.blog.posting.exception;
 
 import com.hanghae.blog.posting.controller.PostingController;
 import com.hanghae.blog.posting.dto.PostingDto;
-import com.hanghae.blog.posting.exception.custom.NotEnoughArgumentException;
+import com.hanghae.blog.common.custom.NotEnoughArgumentException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

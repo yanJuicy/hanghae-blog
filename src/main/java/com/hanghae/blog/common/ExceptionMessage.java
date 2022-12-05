@@ -1,4 +1,4 @@
-package com.hanghae.blog.posting.exception;
+package com.hanghae.blog.common;
 
 import lombok.Getter;
 
