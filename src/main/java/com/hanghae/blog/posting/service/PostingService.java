@@ -23,7 +23,7 @@ public class PostingService {
     public List<PostingDto.Response> findAll() {
         List<Posting> postingList = postingRepository.findAll();
         List<PostingDto.Response> responseList = postingList.stream()
-                .map(e -> new PostingDto.Response(READ_POSTING, new PostingDto.Data(e)))
+                .map(e -> new PostingDto.Response(READ_POSTING_SUCCESS_MSG, new PostingDto.Data(e)))
                 .collect(Collectors.toList());
         return responseList;
     }
@@ -31,14 +31,14 @@ public class PostingService {
     public PostingDto.Response findOne(Long id) {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
-        return new PostingDto.Response(READ_POSTING, new PostingDto.Data(foundPosting));
+        return new PostingDto.Response(READ_POSTING_SUCCESS_MSG, new PostingDto.Data(foundPosting));
     }
 
     @Transactional
     public PostingDto.Response create(PostingDto.Request requestDto) {
         Posting posting = requestDto.toEntity();
         Posting savedPosting = postingRepository.save(posting);
-        return new PostingDto.Response(CREATE_POSTING, new PostingDto.Data(savedPosting));
+        return new PostingDto.Response(CREATE_POSTING_SUCCESS_MSG, new PostingDto.Data(savedPosting));
     }
 
     @Transactional
@@ -52,7 +52,7 @@ public class PostingService {
 
         foundPosting.update(requestDto);
 
-        return new PostingDto.Response(UPDATE_POSTING, new PostingDto.Data(foundPosting));
+        return new PostingDto.Response(UPDATE_POSTING_SUCCESS_MSG, new PostingDto.Data(foundPosting));
     }
 
     @Transactional
