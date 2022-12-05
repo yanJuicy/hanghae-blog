@@ -1,36 +1,36 @@
 package com.hanghae.blog.member.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.hanghae.blog.member.dto.MemberResponseDto;
+import com.hanghae.blog.member.dto.CreateMemberRequestDto;
+import com.hanghae.blog.member.dto.CreateMemberResponseDto;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.member.repository.MemberRepository;
-import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static com.hanghae.blog.common.exception.ExceptionMessage.ALREADY_EXIST_MEMBER_EXCEPTION_MSG;
+import static com.hanghae.blog.common.response.ResponseMessage.CREATE_MEMBER;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
-	private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-	public MemberResponseDto findMember(Long id) {
-		Member foundMember = memberRepository.findById(id)
-			.orElseThrow(() -> new NullPointerException("회원 상세 조회 실패"));
+    @Transactional
+    public CreateMemberResponseDto createMember(CreateMemberRequestDto request) {
+        String username = request.getUsername();
 
-		return new MemberResponseDto(foundMember);
-	}
+        Optional<Member> dbUser = memberRepository.findByUsername(username);
+        if (dbUser.isPresent()) {
+            throw new IllegalArgumentException(ALREADY_EXIST_MEMBER_EXCEPTION_MSG.getMsg());
+        }
 
-	public List<MemberResponseDto> findAllMember() {
-		List<Member> memberList = memberRepository.findAll();
+        memberRepository.save(new Member(request));
 
-		List<MemberResponseDto> responseList = memberList.stream()
-			.map(m -> new MemberResponseDto(m))
-			.collect(Collectors.toList());
-
-		return responseList;
-	}
+        return new CreateMemberResponseDto(CREATE_MEMBER);
+    }
 
 }

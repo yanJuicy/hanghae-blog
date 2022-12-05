@@ -1,9 +1,8 @@
 package com.hanghae.blog.member.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import com.hanghae.blog.member.dto.CreateMemberRequestDto;
 import lombok.Getter;
 
 @Getter
@@ -11,16 +10,20 @@ import lombok.Getter;
 public class Member {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column
-	private String name;
+	private String username;
 
 	@Column
-	private String email;
+	private String password;
 
-	@Column
-	private String pw;
+	protected Member() {}
 
+	public Member(CreateMemberRequestDto request) {
+		this.username = request.getUsername();
+		this.password = request.getPassword();
+	}
 
 }
