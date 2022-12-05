@@ -1,4 +1,4 @@
-package com.hanghae.blog.common;
+package com.hanghae.blog.common.response;
 
 import lombok.Getter;
 

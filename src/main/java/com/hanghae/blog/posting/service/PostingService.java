@@ -1,9 +1,9 @@
 package com.hanghae.blog.posting.service;
 
-import com.hanghae.blog.common.ResponseMessage;
+import com.hanghae.blog.common.response.ResponseMessage;
 import com.hanghae.blog.posting.dto.PostingDto;
 import com.hanghae.blog.posting.entity.Posting;
-import com.hanghae.blog.common.ExceptionMessage;
+import com.hanghae.blog.common.response.ExceptionMessage;
 import com.hanghae.blog.posting.repository.PostingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

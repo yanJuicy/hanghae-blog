@@ -1,6 +1,6 @@
 package com.hanghae.blog.posting.dto;
 
-import com.hanghae.blog.common.ResponseMessage;
+import com.hanghae.blog.common.response.ResponseMessage;
 import com.hanghae.blog.posting.entity.Posting;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
