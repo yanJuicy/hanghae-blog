@@ -3,6 +3,8 @@ package com.hanghae.member;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.hanghae.member.entity.Member;
+import com.hanghae.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;

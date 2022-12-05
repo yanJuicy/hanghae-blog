@@ -1,5 +1,6 @@
 package com.hanghae.member;
 
+import com.hanghae.member.entity.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
