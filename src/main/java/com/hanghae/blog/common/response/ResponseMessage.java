@@ -12,7 +12,9 @@ public enum ResponseMessage {
     DELETE_POSTING_SUCCESS_MSG(200, "포스팅 삭제 성공"),
 
     // member
-    CREATE_MEMBER(201, "회원 등록 성공");
+    LOGIN_MEMBER_SUCCESS_MSG(200, "로그인 성공"),
+    CREATE_MEMBER_SUCCESS_MSG(201, "회원 등록 성공");
+
 
     private final int status;
     private final String msg;
