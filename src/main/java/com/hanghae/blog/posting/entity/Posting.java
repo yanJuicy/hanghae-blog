@@ -7,7 +7,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Builder
 @Getter
@@ -32,9 +38,8 @@ public class Posting extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private Member memberId;
 
     public void update(PostingDto.Request requestDto) {
         this.title = requestDto.getTitle();

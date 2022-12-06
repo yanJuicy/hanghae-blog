@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +32,12 @@ public class PostingController {
     }
 
     @PostMapping
-    public PostingDto.Response createPosting(@RequestBody final PostingDto.Request request) {
-        if (!request.isFill()) {
+    public PostingDto.Response createPosting(@RequestBody final PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+        if (!requestDto.isFill()) {
             throw new NotEnoughArgumentException();
         }
 
-        return postingService.create(request);
+        return postingService.create(requestDto, servletRequest);
     }
 
     @PutMapping("/{id}")

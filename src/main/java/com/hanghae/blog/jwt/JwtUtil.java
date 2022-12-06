@@ -1,5 +1,7 @@
 package com.hanghae.blog.jwt;
 
+import com.hanghae.blog.common.exception.ExceptionMessage;
+import com.hanghae.blog.common.exception.custom.IllegalJwtException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+
+import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_JWT_EXCEPTION_MSG;
 
 @Slf4j
 @Component
@@ -35,8 +39,9 @@ public class JwtUtil {
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return bearerToken.substring(7);
+            return bearerToken.substring(BEARER_PREFIX.length());
         }
+
         return null;
     }
 
@@ -57,7 +62,7 @@ public class JwtUtil {
             Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
-                    .parseClaimsJwt(token);
+                    .parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
@@ -72,6 +77,15 @@ public class JwtUtil {
     }
 
     public Claims getUserInfoFromToken(String token) {
+        if (token == null) {
+            throw new IllegalJwtException(WRONG_JWT_EXCEPTION_MSG.getMsg());
+        }
+
+        if (!validateToken(token)) {
+
+            throw new IllegalJwtException(WRONG_JWT_EXCEPTION_MSG.getMsg());
+        }
+
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
