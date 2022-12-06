@@ -1,16 +1,13 @@
 package com.hanghae.blog.posting.entity;
 
+import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.posting.dto.PostingDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Builder
 @Getter
@@ -23,17 +20,21 @@ public class Posting extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private String writer;
 
-    @Column
+    @Column(nullable = false)
     private String contents;
 
-    @Column
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
 
     public void update(PostingDto.Request requestDto) {
         this.title = requestDto.getTitle();
