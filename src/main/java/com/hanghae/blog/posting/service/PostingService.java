@@ -21,7 +21,7 @@ public class PostingService {
     private final PostingRepository postingRepository;
 
     public List<PostingDto.Response> findAll() {
-        List<Posting> postingList = postingRepository.findAll();
+        List<Posting> postingList = postingRepository.findByOrderByCreatedAtDesc();
         List<PostingDto.Response> responseList = postingList.stream()
                 .map(e -> new PostingDto.Response(READ_POSTING_SUCCESS_MSG, new PostingDto.Data(e)))
                 .collect(Collectors.toList());
