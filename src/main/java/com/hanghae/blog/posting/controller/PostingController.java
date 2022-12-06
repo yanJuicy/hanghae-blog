@@ -1,12 +1,18 @@
 package com.hanghae.blog.posting.controller;
 
-import com.hanghae.blog.posting.dto.PostingDto;
 import com.hanghae.blog.common.exception.custom.NotEnoughArgumentException;
+import com.hanghae.blog.posting.dto.PostingDto;
 import com.hanghae.blog.posting.service.PostingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -32,7 +38,7 @@ public class PostingController {
     }
 
     @PostMapping
-    public PostingDto.Response createPosting(@RequestBody final PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+    public PostingDto.Response createPosting(@RequestBody PostingDto.Request requestDto, HttpServletRequest servletRequest) {
         if (!requestDto.isFill()) {
             throw new NotEnoughArgumentException();
         }
@@ -41,16 +47,16 @@ public class PostingController {
     }
 
     @PutMapping("/{id}")
-    public PostingDto.Response updatePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
-        if (!request.isFill()) {
+    public PostingDto.Response updatePosting(@PathVariable Long id, @RequestBody PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+        if (!requestDto.isFill()) {
             throw new NotEnoughArgumentException();
         }
 
-        return postingService.update(id, request);
+        return postingService.update(id, requestDto, servletRequest);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deletePosting(@PathVariable Long id, @RequestBody final PostingDto.Request request) {
+    public ResponseEntity<Map<String, Boolean>> deletePosting(@PathVariable Long id, @RequestBody PostingDto.Request request) {
         postingService.deleteOne(id, request);
         Map<String, Boolean> result = new HashMap<>();
         result.put("success", true);

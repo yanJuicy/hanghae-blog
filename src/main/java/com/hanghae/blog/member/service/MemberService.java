@@ -62,4 +62,10 @@ public class MemberService {
         return !a.equals(b);
     }
 
+    public Member findMember(String username) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new NoSuchElementException(NO_EXIST_MEMBER_EXCEPTION_MSG.getMsg()));
+
+        return member;
+    }
 }
