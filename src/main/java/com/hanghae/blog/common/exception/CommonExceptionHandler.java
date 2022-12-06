@@ -1,5 +1,6 @@
 package com.hanghae.blog.common.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -9,6 +10,7 @@ import static com.hanghae.blog.common.exception.ExceptionMessage.INTERNAL_SERVER
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
+@Slf4j
 @RestControllerAdvice
 public class CommonExceptionHandler {
 
@@ -21,6 +23,7 @@ public class CommonExceptionHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ExceptionResponseDto handleServerError(Exception e) {
+        log.error(e.getMessage());
         return new ExceptionResponseDto(INTERNAL_SERVER_ERROR_MSG);
     }
 
