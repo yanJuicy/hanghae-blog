@@ -56,8 +56,8 @@ public class PostingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deletePosting(@PathVariable Long id, @RequestBody PostingDto.Request request) {
-        postingService.deleteOne(id, request);
+    public ResponseEntity<Map<String, Boolean>> deletePosting(@PathVariable Long id, @RequestBody PostingDto.Request request, HttpServletRequest servletRequest) {
+        postingService.deleteOne(id, request, servletRequest);
         Map<String, Boolean> result = new HashMap<>();
         result.put("success", true);
 

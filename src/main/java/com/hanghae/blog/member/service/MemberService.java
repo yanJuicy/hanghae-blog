@@ -43,7 +43,7 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public LoginMemberResponseDto loginMember(LoginMemberRequestDto request, HttpServletResponse response) {
+    public LoginMemberResponseDto login(LoginMemberRequestDto request, HttpServletResponse response) {
         String username = request.getUsername();
         String password = request.getPassword();
 

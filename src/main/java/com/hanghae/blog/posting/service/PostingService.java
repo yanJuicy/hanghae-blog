@@ -82,23 +82,29 @@ public class PostingService {
         return new PostingDto.Response(UPDATE_POSTING_SUCCESS_MSG, new PostingDto.Data(foundPosting));
     }
 
-    private String getTokenSubject(HttpServletRequest servletRequest) {
-        String token = jwtUtil.resolveToken(servletRequest);
-        Claims claim = jwtUtil.getUserInfoFromToken(token);
-        String username = claim.getSubject();
-        return username;
-    }
-
     @Transactional
-    public void deleteOne(Long id, PostingDto.Request requestDto) {
+    public void deleteOne(Long id, PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+        String usernameInToken = getTokenSubject(servletRequest);
+
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
+
+        if (!usernameInToken.equals(foundPosting.getMemberId().getUsername())) {
+            throw new IllegalJwtException(WRONG_JWT_EXCEPTION_MSG.getMsg());
+        }
 
         if (isNotEqualPassword(foundPosting.getPassword(), requestDto.getPassword())) {
             throw new IllegalArgumentException(WRONG_PASSWORD_EXCEPTION_MSG.getMsg());
         }
 
         postingRepository.deleteById(id);
+    }
+
+    private String getTokenSubject(HttpServletRequest servletRequest) {
+        String token = jwtUtil.resolveToken(servletRequest);
+        Claims claim = jwtUtil.getUserInfoFromToken(token);
+        String username = claim.getSubject();
+        return username;
     }
 
     private boolean isNotEqualPassword(String a, String b) {
