@@ -9,10 +9,7 @@ import javax.validation.constraints.Size;
 @RequiredArgsConstructor
 public class JoinMemberRequestDto {
 
-    @Size(min = 4, max = 10)
     private final String username;
-
-    @Size(min = 8, max = 15)
     private final String password;
 
 }
