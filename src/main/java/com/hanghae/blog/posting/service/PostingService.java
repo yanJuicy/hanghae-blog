@@ -59,7 +59,7 @@ public class PostingService {
                 .writer(requestDto.getWriter())
                 .contents(requestDto.getContents())
                 .password(requestDto.getPassword())
-                .memberId(member)
+                .member(member)
                 .build();
         Posting savedPosting = postingRepository.save(posting);
         return new PostingDto.Response(CREATE_POSTING_SUCCESS_MSG, new PostingDto.Data(savedPosting));
@@ -72,7 +72,7 @@ public class PostingService {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
 
-        if (!usernameInToken.equals(foundPosting.getMemberId().getUsername())) {
+        if (!usernameInToken.equals(foundPosting.getMember().getUsername())) {
             throw new IllegalJwtException(WRONG_JWT_EXCEPTION_MSG.getMsg());
         }
 
@@ -92,7 +92,7 @@ public class PostingService {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
 
-        if (!usernameInToken.equals(foundPosting.getMemberId().getUsername())) {
+        if (!usernameInToken.equals(foundPosting.getMember().getUsername())) {
             throw new IllegalJwtException(WRONG_JWT_EXCEPTION_MSG.getMsg());
         }
 
