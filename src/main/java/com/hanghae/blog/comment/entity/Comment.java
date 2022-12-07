@@ -1,6 +1,7 @@
 package com.hanghae.blog.comment.entity;
 
 import com.hanghae.blog.common.entity.Timestamped;
+import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.posting.entity.Posting;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 public class Comment extends Timestamped {
@@ -21,11 +23,40 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "posting_id", nullable = false)
     private Posting posting;
 
+    protected Comment() {}
+
+    public Comment(String content, Member member, Posting posting) {
+        this.content = content;
+        this.member = member;
+        this.posting = posting;
+    }
+
+    public void setPosting(Posting posting) {
+        if (Objects.nonNull(this.posting)) {
+            this.posting.getCommentList().remove(this);
+        }
+
+        this.posting = posting;
+        posting.getCommentList().add(this);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getUsername() {
+        return member.getUsername();
+    }
 }

@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +43,7 @@ public class Posting extends Timestamped {
     private String password;
 
     @ManyToOne
-    private Member memberId;
+    private Member member;
 
     @OneToMany(mappedBy = "posting")
     private List<Comment> commentList = new ArrayList<>();
@@ -54,5 +53,9 @@ public class Posting extends Timestamped {
         this.writer = requestDto.getWriter();
         this.contents = requestDto.getContents();
         this.password = requestDto.getPassword();
+    }
+
+    public void addComment(Comment comment) {
+        comment.setPosting(this);
     }
 }
