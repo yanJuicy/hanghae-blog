@@ -1,5 +1,6 @@
 package com.hanghae.blog.posting.entity;
 
+import com.hanghae.blog.comment.entity.Comment;
 import com.hanghae.blog.common.entity.Timestamped;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.posting.dto.PostingDto;
@@ -15,6 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -39,8 +43,11 @@ public class Posting extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member memberId;
+
+    @OneToMany(mappedBy = "posting")
+    private List<Comment> commentList = new ArrayList<>();
 
     public void update(PostingDto.Request requestDto) {
         this.title = requestDto.getTitle();
