@@ -2,6 +2,7 @@ package com.hanghae.blog.member.service;
 
 import static com.hanghae.blog.common.exception.ExceptionMessage.ALREADY_EXIST_MEMBER_EXCEPTION_MSG;
 import static com.hanghae.blog.common.exception.ExceptionMessage.NO_EXIST_MEMBER_EXCEPTION_MSG;
+import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_ADMIN_TOKEN;
 import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG;
 import static com.hanghae.blog.common.response.ResponseMessage.CREATE_MEMBER_SUCCESS_MSG;
 import static com.hanghae.blog.common.response.ResponseMessage.LOGIN_MEMBER_SUCCESS_MSG;
@@ -11,12 +12,15 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.hanghae.blog.common.exception.ExceptionMessage;
+import com.hanghae.blog.member.entity.MemberRole;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hanghae.blog.jwt.JwtService;
-import com.hanghae.blog.member.dto.JoinMemberRequestDto;
-import com.hanghae.blog.member.dto.JoinMemberResponseDto;
+import com.hanghae.blog.member.dto.SignupMemberRequestDto;
+import com.hanghae.blog.member.dto.SignupMemberResponseDto;
 import com.hanghae.blog.member.dto.LoginMemberRequestDto;
 import com.hanghae.blog.member.dto.LoginMemberResponseDto;
 import com.hanghae.blog.member.entity.Member;
@@ -27,12 +31,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class MemberService {
-
     private final MemberRepository memberRepository;
     private final JwtService jwtService;
 
+    @Value("${admin.token}")
+    private String adminToken;
+
     @Transactional
-    public JoinMemberResponseDto createMember(JoinMemberRequestDto request) {
+    public SignupMemberResponseDto createMember(SignupMemberRequestDto request) {
         String username = request.getUsername();
 
         Optional<Member> dbUser = memberRepository.findByUsername(username);
@@ -40,9 +46,18 @@ public class MemberService {
             throw new IllegalArgumentException(ALREADY_EXIST_MEMBER_EXCEPTION_MSG.getMsg());
         }
 
-        memberRepository.save(new Member(request));
+        MemberRole role = MemberRole.USER;
+        if (request.isAdmin()) {
+            if (!request.getAdminToken().equals(adminToken)) {
+                throw new IllegalArgumentException(WRONG_ADMIN_TOKEN.getMsg());
+            }
 
-        return new JoinMemberResponseDto(CREATE_MEMBER_SUCCESS_MSG);
+            role = MemberRole.ADMIN;
+        }
+
+        memberRepository.save(new Member(request, role));
+
+        return new SignupMemberResponseDto(CREATE_MEMBER_SUCCESS_MSG);
     }
 
     @Transactional(readOnly = true)

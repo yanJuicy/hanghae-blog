@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @RequiredArgsConstructor
-public class JoinMemberRequestDto {
+public class SignupMemberRequestDto {
     private static final String USERNAME_PATTERN = "^[a-z0-9]+";
     private static final String PASSWORD_PATTERN = "^[A-Za-z0-9\\{\\}\\[\\]\\/?.,;:|\\)*~`!^\\-_+<>@\\#$%&\\\\\\=\\(\\'\\\"]+";
 
@@ -20,4 +20,7 @@ public class JoinMemberRequestDto {
     @Pattern(regexp = PASSWORD_PATTERN)
     private final String password;
 
+    private final boolean admin;
+
+    private final String adminToken;
 }

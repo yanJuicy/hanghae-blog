@@ -1,7 +1,7 @@
 package com.hanghae.blog.member.controller;
 
-import com.hanghae.blog.member.dto.JoinMemberRequestDto;
-import com.hanghae.blog.member.dto.JoinMemberResponseDto;
+import com.hanghae.blog.member.dto.SignupMemberRequestDto;
+import com.hanghae.blog.member.dto.SignupMemberResponseDto;
 import com.hanghae.blog.member.dto.LoginMemberRequestDto;
 import com.hanghae.blog.member.dto.LoginMemberResponseDto;
 import com.hanghae.blog.member.service.MemberService;
@@ -22,7 +22,7 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@PostMapping("/join")
-	public JoinMemberResponseDto joinMember(@Valid @RequestBody JoinMemberRequestDto requestDto) {
+	public SignupMemberResponseDto signupMember(@Valid @RequestBody SignupMemberRequestDto requestDto) {
 		return memberService.createMember(requestDto);
 	}
 

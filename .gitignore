@@ -34,3 +34,4 @@ build/
 .vscode/
 
 src/main/resources/application-jwt.properties
+src/main/resources/application-admin.properties

@@ -18,6 +18,7 @@ public enum ExceptionMessage {
     WRONG_JOIN_USERNAME_EXCEPTION(400, "username은 최소 4자 이상, 10자 이하이며 알파벳 소문자(a~z), 숫자(0~9) 입니다."),
     WRONG_JOIN_PASSWORD_EXCEPTION(400, "password는 최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9) 입니다."),
     NO_EXIST_MEMBER_EXCEPTION_MSG(400,"등록된 사용자가 없습니다."),
+    WRONG_ADMIN_TOKEN(400,"잘못된 관리자 암호입니다."),
     ALREADY_EXIST_MEMBER_EXCEPTION_MSG(400, "이미 회원가입한 유저입니다.");
 
     private final int status;
