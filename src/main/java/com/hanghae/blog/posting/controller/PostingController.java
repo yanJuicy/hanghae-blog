@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@RequestMapping("/postings")
+@RequestMapping("/api/postings")
 @RestController
 public class PostingController {
 
