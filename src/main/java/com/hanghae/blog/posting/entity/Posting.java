@@ -1,5 +1,6 @@
 package com.hanghae.blog.posting.entity;
 
+import com.hanghae.blog.common.entity.Timestamped;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.posting.dto.PostingDto;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.hanghae.blog.posting.entity;
+package com.hanghae.blog.common.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
