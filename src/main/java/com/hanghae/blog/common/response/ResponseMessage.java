@@ -13,6 +13,8 @@ public enum ResponseMessage {
 
     // comment
     CREATE_COMMENT_SUCCESS_MSG(201, "댓글 생성 성공"),
+    UPDATE_COMMENT_SUCCESS_MSG(200, "댓글 수정 성공"),
+    DELETE_COMMENT_SUCCESS_MSG(200, "댓글 삭제 성공"),
 
 
     // member

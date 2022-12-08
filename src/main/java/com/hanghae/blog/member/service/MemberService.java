@@ -19,7 +19,7 @@ import java.util.Optional;
 
 import static com.hanghae.blog.common.exception.ExceptionMessage.ALREADY_EXIST_MEMBER_EXCEPTION_MSG;
 import static com.hanghae.blog.common.exception.ExceptionMessage.NO_EXIST_MEMBER_EXCEPTION_MSG;
-import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_ADMIN_TOKEN;
+import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_ADMIN_TOKEN_EXCEPTION_MSG;
 import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG;
 import static com.hanghae.blog.common.response.ResponseMessage.CREATE_MEMBER_SUCCESS_MSG;
 import static com.hanghae.blog.common.response.ResponseMessage.LOGIN_MEMBER_SUCCESS_MSG;
@@ -45,7 +45,7 @@ public class MemberService {
         MemberRole role = MemberRole.USER;
         if (request.isAdmin()) {
             if (!request.getAdminToken().equals(adminToken)) {
-                throw new IllegalArgumentException(WRONG_ADMIN_TOKEN.getMsg());
+                throw new IllegalArgumentException(WRONG_ADMIN_TOKEN_EXCEPTION_MSG.getMsg());
             }
 
             role = MemberRole.ADMIN;

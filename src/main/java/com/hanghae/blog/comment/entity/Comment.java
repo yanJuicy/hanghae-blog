@@ -1,5 +1,6 @@
 package com.hanghae.blog.comment.entity;
 
+import com.hanghae.blog.comment.dto.UpdateCommentRequestDto;
 import com.hanghae.blog.common.entity.Timestamped;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.posting.entity.Posting;
@@ -58,5 +59,9 @@ public class Comment extends Timestamped {
 
     public String getUsername() {
         return member.getUsername();
+    }
+
+    public void update(UpdateCommentRequestDto requestDto) {
+        this.content = requestDto.getContent();
     }
 }

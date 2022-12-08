@@ -24,8 +24,8 @@ public class MemberExceptionHandler {
             return new PostingDto.Exception(ALREADY_EXIST_MEMBER_EXCEPTION_MSG);
         } else if(e.getMessage().equals(NO_EXIST_MEMBER_EXCEPTION_MSG.getMsg())) {
             return new PostingDto.Exception(NO_EXIST_MEMBER_EXCEPTION_MSG);
-        } else if (e.getMessage().equals(WRONG_ADMIN_TOKEN.getMsg())) {
-            return new PostingDto.Exception(WRONG_ADMIN_TOKEN);
+        } else if (e.getMessage().equals(WRONG_ADMIN_TOKEN_EXCEPTION_MSG.getMsg())) {
+            return new PostingDto.Exception(WRONG_ADMIN_TOKEN_EXCEPTION_MSG);
         }
 
         return new PostingDto.Exception(BAD_REQUEST_ERROR_MSG);
