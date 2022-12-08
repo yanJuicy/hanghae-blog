@@ -1,21 +1,5 @@
 package com.hanghae.blog.posting.service;
 
-import static com.hanghae.blog.common.exception.ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG;
-import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_JWT_EXCEPTION_MSG;
-import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG;
-import static com.hanghae.blog.common.response.ResponseMessage.CREATE_POSTING_SUCCESS_MSG;
-import static com.hanghae.blog.common.response.ResponseMessage.READ_POSTING_SUCCESS_MSG;
-import static com.hanghae.blog.common.response.ResponseMessage.UPDATE_POSTING_SUCCESS_MSG;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.hanghae.blog.common.exception.custom.IllegalJwtException;
 import com.hanghae.blog.jwt.JwtService;
 import com.hanghae.blog.member.entity.Member;
@@ -23,9 +7,22 @@ import com.hanghae.blog.member.service.MemberService;
 import com.hanghae.blog.posting.dto.PostingDto;
 import com.hanghae.blog.posting.entity.Posting;
 import com.hanghae.blog.posting.repository.PostingRepository;
-
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+import static com.hanghae.blog.common.exception.ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG;
+import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_JWT_EXCEPTION_MSG;
+import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG;
+import static com.hanghae.blog.common.response.ResponseMessage.CREATE_POSTING_SUCCESS_MSG;
+import static com.hanghae.blog.common.response.ResponseMessage.READ_POSTING_SUCCESS_MSG;
+import static com.hanghae.blog.common.response.ResponseMessage.UPDATE_POSTING_SUCCESS_MSG;
 
 @RequiredArgsConstructor
 @Service
@@ -45,6 +42,7 @@ public class PostingService {
     public PostingDto.Response findOne(Long id) {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
+        foundPosting.getCommentList();
         return new PostingDto.Response(READ_POSTING_SUCCESS_MSG, new PostingDto.Data(foundPosting));
     }
 
