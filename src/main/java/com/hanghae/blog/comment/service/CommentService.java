@@ -55,7 +55,7 @@ public class CommentService {
     }
 
     @Transactional
-    public UpdateCommentResponseDto updateComment(Long commentId, UpdateCommentRequestDto requestDto,
+    public UpdateCommentResponseDto updateComment(Long postingId, Long commentId, UpdateCommentRequestDto requestDto,
                                                   HttpServletRequest servletRequest) {
         String usernameInToken = getTokenSubject(servletRequest);
 
@@ -65,13 +65,17 @@ public class CommentService {
         Member foundMember = memberRepository.findByUsername(usernameInToken)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_MEMBER_EXCEPTION_MSG.getMsg()));
 
+		Posting foundPosting = postingRepository.findById(postingId)
+				.orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
+
         if (!foundComment.getUsername().equals(foundMember.getUsername())) {
             throw new IllegalArgumentException(WRONG_USER_EXCEPTION_MSG.getMsg());
         }
 
         foundComment.update(requestDto);
+		foundPosting.addComment(foundComment);
 
-        return new UpdateCommentResponseDto(UPDATE_COMMENT_SUCCESS_MSG, foundComment);
+		return new UpdateCommentResponseDto(UPDATE_COMMENT_SUCCESS_MSG, foundComment);
     }
 
     @Transactional

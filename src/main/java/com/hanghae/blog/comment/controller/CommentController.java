@@ -22,23 +22,24 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class CommentController {
 
-    private final CommentService commentService;
+	private final CommentService commentService;
 
-    @PostMapping
-    public CreateCommentResponseDto addComment(@PathVariable Long postingId, @RequestBody CreateCommentRequestDto requestDto,
-                                               HttpServletRequest servletRequest) {
-        return commentService.createComment(postingId, requestDto, servletRequest);
-    }
+	@PostMapping
+	public CreateCommentResponseDto addComment(@PathVariable Long postingId, @RequestBody CreateCommentRequestDto requestDto,
+											   HttpServletRequest servletRequest) {
+		return commentService.createComment(postingId, requestDto, servletRequest);
+	}
 
-    @PutMapping("/{commentId}")
-    public UpdateCommentResponseDto updateComment(@PathVariable Long commentId, @RequestBody UpdateCommentRequestDto requestDto,
-                                                  HttpServletRequest servletRequest) {
-        return commentService.updateComment(commentId, requestDto, servletRequest);
-    }
+	@PutMapping("/{commentId}")
+	public UpdateCommentResponseDto updateComment(@PathVariable Long postingId, @PathVariable Long commentId,
+												  @RequestBody UpdateCommentRequestDto requestDto,
+												  HttpServletRequest servletRequest) {
+		return commentService.updateComment(postingId, commentId, requestDto, servletRequest);
+	}
 
-    @DeleteMapping("/{commentId}")
-    public ResponseDto deleteComment(@PathVariable Long commentId, HttpServletRequest servletRequest) {
-        return commentService.deleteComment(commentId, servletRequest);
-    }
+	@DeleteMapping("/{commentId}")
+	public ResponseDto deleteComment(@PathVariable Long commentId, HttpServletRequest servletRequest) {
+		return commentService.deleteComment(commentId, servletRequest);
+	}
 
 }

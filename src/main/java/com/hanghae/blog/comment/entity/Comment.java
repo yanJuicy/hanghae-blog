@@ -46,7 +46,7 @@ public class Comment extends Timestamped {
         }
 
         this.posting = posting;
-        posting.getCommentList().add(this);
+		posting.getCommentList().add(this);
     }
 
     public Long getId() {
