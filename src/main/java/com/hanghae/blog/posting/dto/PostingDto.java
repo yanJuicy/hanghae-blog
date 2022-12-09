@@ -1,5 +1,6 @@
 package com.hanghae.blog.posting.dto;
 
+import com.hanghae.blog.comment.entity.Comment;
 import com.hanghae.blog.common.exception.ExceptionMessage;
 import com.hanghae.blog.common.response.ResponseMessage;
 import com.hanghae.blog.posting.entity.Posting;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostingDto {
 
@@ -37,24 +40,6 @@ public class PostingDto {
     }
 
     @Getter
-    public static class Data {
-        private final Long id;
-        private final String title;
-        private final String writer;
-        private final String contents;
-        private final LocalDateTime lastModifiedAt;
-
-        public Data(Posting posting) {
-            this.id = posting.getId();
-            this.title = posting.getTitle();
-            this.writer = posting.getWriter();
-            this.contents = posting.getWriter();
-            this.lastModifiedAt = posting.getLastModifiedAt();
-        }
-    }
-
-
-    @Getter
     public static class Response {
         private int status;
         private String msg;
@@ -66,6 +51,25 @@ public class PostingDto {
             this.data = data;
         }
     }
+
+	@Getter
+	public static class Data {
+		private final Long id;
+		private final String title;
+		private final String writer;
+		private final String contents;
+		private final LocalDateTime lastModifiedAt;
+		private List<Comment> commentList;
+
+		public Data(Posting posting) {
+			this.id = posting.getId();
+			this.title = posting.getTitle();
+			this.writer = posting.getWriter();
+			this.contents = posting.getWriter();
+			this.lastModifiedAt = posting.getLastModifiedAt();
+			this.commentList = posting.getCommentList();
+		}
+	}
 
     @Getter
     public static class Exception {

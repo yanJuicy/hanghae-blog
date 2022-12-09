@@ -42,8 +42,7 @@ public class PostingService {
     public PostingDto.Response findOne(Long id) {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
-        foundPosting.getCommentList();
-        return new PostingDto.Response(READ_POSTING_SUCCESS_MSG, new PostingDto.Data(foundPosting));
+		return new PostingDto.Response(READ_POSTING_SUCCESS_MSG, new PostingDto.Data(foundPosting));
     }
 
     @Transactional
