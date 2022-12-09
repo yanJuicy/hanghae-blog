@@ -1,11 +1,15 @@
 package com.hanghae.blog.posting.service;
 
 import com.hanghae.blog.common.exception.custom.IllegalJwtException;
+import com.hanghae.blog.common.response.GenericResponseDto;
 import com.hanghae.blog.jwt.JwtService;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.member.service.MemberService;
 import com.hanghae.blog.posting.dto.PostingDto;
+import com.hanghae.blog.posting.dto.RequestCreatePostingDto;
+import com.hanghae.blog.posting.dto.ResponseCreatePostingDto;
 import com.hanghae.blog.posting.entity.Posting;
+import com.hanghae.blog.posting.mapper.PostingMapper;
 import com.hanghae.blog.posting.repository.PostingRepository;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +24,6 @@ import java.util.stream.Collectors;
 import static com.hanghae.blog.common.exception.ExceptionMessage.NO_EXIST_POSTING_EXCEPTION_MSG;
 import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_JWT_EXCEPTION_MSG;
 import static com.hanghae.blog.common.exception.ExceptionMessage.WRONG_PASSWORD_EXCEPTION_MSG;
-import static com.hanghae.blog.common.response.ResponseMessage.CREATE_POSTING_SUCCESS_MSG;
 import static com.hanghae.blog.common.response.ResponseMessage.READ_POSTING_SUCCESS_MSG;
 import static com.hanghae.blog.common.response.ResponseMessage.UPDATE_POSTING_SUCCESS_MSG;
 
@@ -30,6 +33,7 @@ public class PostingService {
     private final PostingRepository postingRepository;
     private final MemberService memberService;
     private final JwtService jwtService;
+	private final PostingMapper postingMapper;
 
     public List<PostingDto.Response> findAll() {
         List<Posting> postingList = postingRepository.findByOrderByCreatedAtDesc();
@@ -46,20 +50,21 @@ public class PostingService {
     }
 
     @Transactional
-    public PostingDto.Response create(PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+    public GenericResponseDto<ResponseCreatePostingDto> create(RequestCreatePostingDto requestDto, HttpServletRequest servletRequest) {
         String usernameInToken = getTokenSubject(servletRequest);
 
         Member member = memberService.findMember(usernameInToken);
 
-        Posting posting = Posting.builder()
+		Posting posting = postingMapper.toPosting(requestDto, member);
+/*        Posting posting = Posting.builder()
                 .title(requestDto.getTitle())
                 .writer(requestDto.getWriter())
                 .contents(requestDto.getContents())
                 .password(requestDto.getPassword())
                 .member(member)
-                .build();
+                .build();*/
         Posting savedPosting = postingRepository.save(posting);
-        return new PostingDto.Response(CREATE_POSTING_SUCCESS_MSG, new PostingDto.Data(savedPosting));
+        return postingMapper.toResponse(savedPosting);
     }
 
     @Transactional

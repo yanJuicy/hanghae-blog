@@ -1,7 +1,10 @@
 package com.hanghae.blog.posting.controller;
 
 import com.hanghae.blog.common.exception.custom.NotEnoughArgumentException;
+import com.hanghae.blog.common.response.GenericResponseDto;
 import com.hanghae.blog.posting.dto.PostingDto;
+import com.hanghae.blog.posting.dto.RequestCreatePostingDto;
+import com.hanghae.blog.posting.dto.ResponseCreatePostingDto;
 import com.hanghae.blog.posting.service.PostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +41,7 @@ public class PostingController {
     }
 
     @PostMapping
-    public PostingDto.Response createPosting(@RequestBody PostingDto.Request requestDto, HttpServletRequest servletRequest) {
-        if (!requestDto.isFill()) {
-            throw new NotEnoughArgumentException();
-        }
-
+    public GenericResponseDto<ResponseCreatePostingDto> createPosting(@RequestBody RequestCreatePostingDto requestDto, HttpServletRequest servletRequest) {
         return postingService.create(requestDto, servletRequest);
     }
 

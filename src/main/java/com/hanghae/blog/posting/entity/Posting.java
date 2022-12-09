@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.sound.midi.MetaMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,15 @@ public class Posting extends Timestamped {
     @OneToMany(mappedBy = "posting")
     private List<Comment> commentList = new ArrayList<>();
 
-    public void update(PostingDto.Request requestDto) {
+	public Posting(String title, String writer, String contents, String password, Member member) {
+		this.title = title;
+		this.writer = writer;
+		this.contents = contents;
+		this.password = password;
+		this.member = member;
+	}
+
+	public void update(PostingDto.Request requestDto) {
         this.title = requestDto.getTitle();
         this.writer = requestDto.getWriter();
         this.contents = requestDto.getContents();
