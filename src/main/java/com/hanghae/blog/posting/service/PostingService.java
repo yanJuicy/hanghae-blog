@@ -56,13 +56,7 @@ public class PostingService {
         Member member = memberService.findMember(usernameInToken);
 
 		Posting posting = postingMapper.toPosting(requestDto, member);
-/*        Posting posting = Posting.builder()
-                .title(requestDto.getTitle())
-                .writer(requestDto.getWriter())
-                .contents(requestDto.getContents())
-                .password(requestDto.getPassword())
-                .member(member)
-                .build();*/
+
         Posting savedPosting = postingRepository.save(posting);
         return postingMapper.toResponse(savedPosting);
     }
