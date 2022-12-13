@@ -1,26 +1,28 @@
 package com.hanghae.blog.member.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupMemberRequestDto {
     private static final String USERNAME_PATTERN = "^[a-z0-9]+";
     private static final String PASSWORD_PATTERN = "^[A-Za-z0-9\\{\\}\\[\\]\\/?.,;:|\\)*~`!^\\-_+<>@\\#$%&\\\\\\=\\(\\'\\\"]+";
 
     @Size(min = 4, max = 10)
     @Pattern(regexp = USERNAME_PATTERN)
-    private final String username;
+    private String username;
 
     @Size(min = 8, max = 15)
     @Pattern(regexp = PASSWORD_PATTERN)
-    private final String password;
+    private String password;
 
-    private final boolean admin;
+    private boolean admin;
 
-    private final String adminToken;
+    private String adminToken;
 }

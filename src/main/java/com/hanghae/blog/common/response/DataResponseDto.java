@@ -3,10 +3,10 @@ package com.hanghae.blog.common.response;
 import lombok.Getter;
 
 @Getter
-public class GenericResponseDto<T> extends ResponseDto {
+public class DataResponseDto<T> extends ResponseDto {
 	private T data;
 
-    public GenericResponseDto(ResponseMessage responseMessage, T data) {
+    public DataResponseDto(ResponseMessage responseMessage, T data) {
         super(responseMessage);
 		this.data = data;
     }

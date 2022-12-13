@@ -3,7 +3,7 @@ package com.hanghae.blog.posting.entity;
 import com.hanghae.blog.comment.entity.Comment;
 import com.hanghae.blog.common.entity.Timestamped;
 import com.hanghae.blog.member.entity.Member;
-import com.hanghae.blog.posting.dto.PostingDto;
+import com.hanghae.blog.posting.dto.RequestUpdatePostingDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,7 +56,7 @@ public class Posting extends Timestamped {
 		this.member = member;
 	}
 
-	public void update(PostingDto.Request requestDto) {
+	public void update(RequestUpdatePostingDto requestDto) {
         this.title = requestDto.getTitle();
         this.writer = requestDto.getWriter();
         this.contents = requestDto.getContents();

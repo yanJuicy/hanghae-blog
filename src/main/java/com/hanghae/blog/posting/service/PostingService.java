@@ -1,13 +1,14 @@
 package com.hanghae.blog.posting.service;
 
 import com.hanghae.blog.common.exception.custom.IllegalJwtException;
-import com.hanghae.blog.common.response.GenericResponseDto;
+import com.hanghae.blog.common.response.DataResponseDto;
 import com.hanghae.blog.common.response.ResponseDto;
 import com.hanghae.blog.jwt.JwtService;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.member.service.MemberService;
-import com.hanghae.blog.posting.dto.PostingDto;
 import com.hanghae.blog.posting.dto.RequestCreatePostingDto;
+import com.hanghae.blog.posting.dto.RequestDeletePostingDto;
+import com.hanghae.blog.posting.dto.RequestUpdatePostingDto;
 import com.hanghae.blog.posting.dto.ResponsePostingDto;
 import com.hanghae.blog.posting.entity.Posting;
 import com.hanghae.blog.posting.mapper.PostingMapper;
@@ -38,25 +39,25 @@ public class PostingService {
     private final JwtService jwtService;
     private final PostingMapper postingMapper;
 
-    public GenericResponseDto<List<ResponsePostingDto>> findAll() {
+    public DataResponseDto<List<ResponsePostingDto>> findAll() {
         List<Posting> postingList = postingRepository.findByOrderByCreatedAtDesc();
         List<ResponsePostingDto> responseList = postingList.stream()
                 .map(e -> postingMapper.toResponse(e))
                 .collect(Collectors.toList());
 
-        return new GenericResponseDto<>(READ_POSTING_SUCCESS_MSG, responseList);
+        return new DataResponseDto<>(READ_POSTING_SUCCESS_MSG, responseList);
     }
 
-    public GenericResponseDto<ResponsePostingDto> findOne(Long id) {
+    public DataResponseDto<ResponsePostingDto> findOne(Long id) {
         Posting foundPosting = postingRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXIST_POSTING_EXCEPTION_MSG.getMsg()));
 
         ResponsePostingDto response = postingMapper.toResponse(foundPosting);
-        return new GenericResponseDto<>(READ_POSTING_SUCCESS_MSG, response);
+        return new DataResponseDto<>(READ_POSTING_SUCCESS_MSG, response);
     }
 
     @Transactional
-    public GenericResponseDto<ResponsePostingDto> create(RequestCreatePostingDto requestDto, HttpServletRequest servletRequest) {
+    public DataResponseDto<ResponsePostingDto> create(RequestCreatePostingDto requestDto, HttpServletRequest servletRequest) {
         String usernameInToken = getTokenSubject(servletRequest);
 
         Member member = memberService.findMember(usernameInToken);
@@ -66,11 +67,11 @@ public class PostingService {
         Posting savedPosting = postingRepository.save(posting);
 
         ResponsePostingDto response = postingMapper.toResponse(savedPosting);
-        return new GenericResponseDto<>(CREATE_POSTING_SUCCESS_MSG, response);
+        return new DataResponseDto<>(CREATE_POSTING_SUCCESS_MSG, response);
     }
 
     @Transactional
-    public GenericResponseDto<ResponsePostingDto> update(Long id, PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+    public DataResponseDto<ResponsePostingDto> update(Long id, RequestUpdatePostingDto requestDto, HttpServletRequest servletRequest) {
         String usernameInToken = getTokenSubject(servletRequest);
 
         Posting foundPosting = postingRepository.findById(id)
@@ -88,11 +89,11 @@ public class PostingService {
 
         ResponsePostingDto response = postingMapper.toResponse(foundPosting);
 
-        return new GenericResponseDto<>(UPDATE_POSTING_SUCCESS_MSG, response);
+        return new DataResponseDto<>(UPDATE_POSTING_SUCCESS_MSG, response);
     }
 
     @Transactional
-    public ResponseDto deleteOne(Long id, PostingDto.Request requestDto, HttpServletRequest servletRequest) {
+    public ResponseDto deleteOne(Long id, RequestDeletePostingDto requestDto, HttpServletRequest servletRequest) {
         String usernameInToken = getTokenSubject(servletRequest);
 
         Posting foundPosting = postingRepository.findById(id)
