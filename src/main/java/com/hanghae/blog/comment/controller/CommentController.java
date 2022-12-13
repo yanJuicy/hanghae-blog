@@ -1,10 +1,10 @@
 package com.hanghae.blog.comment.controller;
 
 import com.hanghae.blog.comment.dto.CreateCommentRequestDto;
-import com.hanghae.blog.comment.dto.CreateCommentResponseDto;
+import com.hanghae.blog.comment.dto.ResponseCommentDto;
 import com.hanghae.blog.comment.dto.UpdateCommentRequestDto;
-import com.hanghae.blog.comment.dto.UpdateCommentResponseDto;
 import com.hanghae.blog.comment.service.CommentService;
+import com.hanghae.blog.common.response.DataResponseDto;
 import com.hanghae.blog.common.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,13 +25,13 @@ public class CommentController {
 	private final CommentService commentService;
 
 	@PostMapping
-	public CreateCommentResponseDto addComment(@PathVariable Long postingId, @RequestBody CreateCommentRequestDto requestDto,
-											   HttpServletRequest servletRequest) {
+	public DataResponseDto<ResponseCommentDto> addComment(@PathVariable Long postingId, @RequestBody CreateCommentRequestDto requestDto,
+														  HttpServletRequest servletRequest) {
 		return commentService.createComment(postingId, requestDto, servletRequest);
 	}
 
 	@PutMapping("/{commentId}")
-	public UpdateCommentResponseDto updateComment(@PathVariable Long postingId, @PathVariable Long commentId,
+	public DataResponseDto<ResponseCommentDto> updateComment(@PathVariable Long postingId, @PathVariable Long commentId,
 												  @RequestBody UpdateCommentRequestDto requestDto,
 												  HttpServletRequest servletRequest) {
 		return commentService.updateComment(postingId, commentId, requestDto, servletRequest);

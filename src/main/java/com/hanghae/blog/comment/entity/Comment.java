@@ -4,6 +4,7 @@ import com.hanghae.blog.comment.dto.UpdateCommentRequestDto;
 import com.hanghae.blog.common.entity.Timestamped;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.posting.entity.Posting;
+import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
 
+@Getter
 @Entity
 public class Comment extends Timestamped {
 
@@ -47,18 +49,6 @@ public class Comment extends Timestamped {
 
         this.posting = posting;
 		posting.getCommentList().add(this);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getUsername() {
-        return member.getUsername();
     }
 
     public void update(UpdateCommentRequestDto requestDto) {
