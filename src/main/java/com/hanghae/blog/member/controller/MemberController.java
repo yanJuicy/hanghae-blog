@@ -1,9 +1,8 @@
 package com.hanghae.blog.member.controller;
 
-import com.hanghae.blog.member.dto.SignupMemberRequestDto;
-import com.hanghae.blog.member.dto.SignupMemberResponseDto;
+import com.hanghae.blog.common.response.ResponseDto;
 import com.hanghae.blog.member.dto.LoginMemberRequestDto;
-import com.hanghae.blog.member.dto.LoginMemberResponseDto;
+import com.hanghae.blog.member.dto.SignupMemberRequestDto;
 import com.hanghae.blog.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +21,13 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@PostMapping("/join")
-	public SignupMemberResponseDto signupMember(@Valid @RequestBody SignupMemberRequestDto requestDto) {
+	public ResponseDto signupMember(@Valid @RequestBody SignupMemberRequestDto requestDto) {
 		return memberService.createMember(requestDto);
 	}
 
 	@PostMapping("/login")
-	public LoginMemberResponseDto loginMember(@Valid @RequestBody LoginMemberRequestDto requestDto, HttpServletResponse response) {
+	public ResponseDto loginMember(@Valid @RequestBody LoginMemberRequestDto requestDto,
+								   HttpServletResponse response) {
 		return memberService.login(requestDto, response);
 	}
 

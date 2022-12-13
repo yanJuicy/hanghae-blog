@@ -1,10 +1,9 @@
 package com.hanghae.blog.member.service;
 
+import com.hanghae.blog.common.response.ResponseDto;
 import com.hanghae.blog.jwt.JwtService;
 import com.hanghae.blog.member.dto.LoginMemberRequestDto;
-import com.hanghae.blog.member.dto.LoginMemberResponseDto;
 import com.hanghae.blog.member.dto.SignupMemberRequestDto;
-import com.hanghae.blog.member.dto.SignupMemberResponseDto;
 import com.hanghae.blog.member.entity.Member;
 import com.hanghae.blog.member.entity.MemberRole;
 import com.hanghae.blog.member.repository.MemberRepository;
@@ -34,7 +33,7 @@ public class MemberService {
     private String adminToken;
 
     @Transactional
-    public SignupMemberResponseDto createMember(SignupMemberRequestDto request) {
+    public ResponseDto createMember(SignupMemberRequestDto request) {
         String username = request.getUsername();
 
         Optional<Member> dbUser = memberRepository.findByUsername(username);
@@ -53,11 +52,11 @@ public class MemberService {
 
         memberRepository.save(new Member(request, role));
 
-        return new SignupMemberResponseDto(CREATE_MEMBER_SUCCESS_MSG);
+        return new ResponseDto(CREATE_MEMBER_SUCCESS_MSG);
     }
 
     @Transactional(readOnly = true)
-    public LoginMemberResponseDto login(LoginMemberRequestDto request, HttpServletResponse response) {
+    public ResponseDto login(LoginMemberRequestDto request, HttpServletResponse response) {
         String username = request.getUsername();
         String password = request.getPassword();
 
@@ -69,7 +68,7 @@ public class MemberService {
         }
 
         jwtService.addTokenToHeader(response, username);
-        return new LoginMemberResponseDto(LOGIN_MEMBER_SUCCESS_MSG);
+        return new ResponseDto(LOGIN_MEMBER_SUCCESS_MSG);
     }
 
     private boolean isNotEqualPassword(String a, String b) {
